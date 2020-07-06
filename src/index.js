@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './container/App';
+import SignUpPage from './pages/UserSignUpPage';
+import Login from './pages/Login'
 import * as serviceWorker from './serviceWorker';
+import apiProgres from './shared/ApiProgres'
+import ApiProgres from './shared/ApiProgres';
+import {Provider} from 'react-redux';
+
+import configureStore from './redux/configureStore';
+
+
+const store=configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store ={store}>
+    <App/></Provider>
+
+  ,
   document.getElementById('root')
 );
 
