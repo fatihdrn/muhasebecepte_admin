@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import {deleteMakale,haberGonder,makaleler} from '../api/apiCall';
-
+import { SpinnerCircular,SpinnerDotted } from 'spinners-react';
 export default class MakaleList extends Component {
    
     state={
        
         _isMounted :false,
         mevzuats:[],
-        deleted:false
+        deleted:false,
+        loading:true
     }
     componentDidMount(){
         makaleler().then(response=>{
-           
+           this.setState({
+               loading:false
+           })
             this.setState({
               mevzuats:response.data
             });
@@ -34,11 +37,10 @@ export default class MakaleList extends Component {
                 };
             
         render() {
-            
+            let loading = this.state.loading;
             
             return (
                 <div className="container">
-               
                
           
               <div className="card">
@@ -46,8 +48,15 @@ export default class MakaleList extends Component {
                  Makale Listesi
                   </h3>
                <div className="list-group-flush">
-              {
-                  this.state.mevzuats.map(mevzuat=>{
+
+               <div id="test">
+        <SpinnerDotted enabled={false}  />
+                </div>
+
+            { loading?<div id="test">
+                <SpinnerDotted enabled={loading}  />
+            </div>
+                 : this.state.mevzuats.map(mevzuat=>{
                     return(
                  
                         <div className="list-group-item list-group-item-action justify-content-between " key={mevzuat.id}>
@@ -61,7 +70,8 @@ export default class MakaleList extends Component {
                           
                            </div>);
                   })
-              }
+
+}
                </div>
               </div>
                 
